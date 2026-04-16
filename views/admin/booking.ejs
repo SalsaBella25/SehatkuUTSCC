@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Kelola Booking | HealthBridge</title>
+    <title>Manajemen Antrean | HealthBridge Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
@@ -10,30 +10,61 @@
     <div class="d-flex">
         <%- include('../partials/sidebar') %>
         
-        <div class="p-5" style="margin-left: 250px; width: 100%;">
-            <h2 class="fw-bold mb-4 text-dark">Data Booking Puskesmas</h2>
-            
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-0 overflow-hidden">
+        <div class="content p-5" style="margin-left: 250px; width: 100%;">
+            <div class="mb-4">
+                <h2 class="fw-bold text-dark">Daftar Antrean Pasien</h2>
+                <p class="text-muted">Kelola jadwal kunjungan masyarakat ke Puskesmas secara real-time.</p>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-body p-0">
                     <table class="table table-hover mb-0 align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th class="px-4 py-3">Pasien</th>
-                                <th class="py-3">Puskesmas</th>
-                                <th class="py-3">Jadwal</th>
-                                <th class="py-3">Keluhan</th>
-                                <th class="py-3 text-center">Aksi</th>
+                                <th class="px-4 py-3">Informasi Pasien</th>
+                                <th class="py-3">Puskesmas Tujuan</th>
+                                <th class="py-3">Waktu Kedatangan</th>
+                                <th class="py-3">Keluhan Utama</th>
+                                <th class="py-3">Status</th>
+                                <th class="py-3 text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% dataBooking.forEach(b => { %>
                             <tr>
-                                <td class="px-4 fw-bold"><%= b.nama_user %></td>
-                                <td><span class="badge bg-info text-dark"><%= b.puskesmas %></span></td>
-                                <td><%= b.tanggal %> <br> <small class="text-muted"><%= b.jam %></small></td>
-                                <td style="max-width: 200px;" class="text-truncate"><%= b.keluhan %></td>
+                                <td class="px-4">
+                                    <div class="fw-bold text-primary"><%= b.nama_user %></div>
+                                    <small class="text-muted">ID: #BK-0<%= b.id %></small>
+                                </td>
+                                <td>
+                                    <div class="badge bg-light text-dark border"><%= b.puskesmas %></div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold"><%= new Date(b.tanggal).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' }) %></div>
+                                    <div class="small text-muted"><i class="bi bi-clock me-1"></i> Jam <%= b.jam %></div>
+                                </td>
+                                <td>
+                                    <p class="mb-0 text-truncate" style="max-width: 180px;" title="<%= b.keluhan %>">
+                                        <%= b.keluhan %>
+                                    </p>
+                                </td>
+                                <td>
+                                    <% if (b.status === 'Selesai') { %>
+                                        <span class="badge bg-success-subtle text-success border border-success px-3 rounded-pill">Telah Diperiksa</span>
+                                    <% } else { %>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 rounded-pill">Menunggu Antrean</span>
+                                    <% } %>
+                                </td>
                                 <td class="text-center">
-                                    <button class="btn btn-sm btn-success rounded-pill px-3">Selesai</button>
+                                    <% if (b.status !== 'Selesai') { %>
+                                        <a href="/admin/booking/selesai/<%= b.id %>" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
+                                            <i class="bi bi-check2-all me-1"></i> Tandai Selesai
+                                        </a>
+                                    <% } else { %>
+                                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 disabled">
+                                            <i class="bi bi-check-lg"></i> Selesai
+                                        </button>
+                                    <% } %>
                                 </td>
                             </tr>
                             <% }) %>
@@ -41,6 +72,13 @@
                     </table>
                 </div>
             </div>
+
+            <% if (dataBooking.length === 0) { %>
+                <div class="text-center py-5 mt-4">
+                    <i class="bi bi-calendar2-x text-muted display-4"></i>
+                    <p class="text-muted mt-2">Tidak ada riwayat booking saat ini.</p>
+                </div>
+            <% } %>
         </div>
     </div>
 </body>

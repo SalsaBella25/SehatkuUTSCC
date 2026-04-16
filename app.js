@@ -153,3 +153,17 @@ app.get('/admin/laporan/hapus/:id', (req, res) => {
 // --- 5. START SERVER ---
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => console.log(`HealthBridge Online di port ${PORT}`));
+
+// Update status booking menjadi Selesai
+app.get('/admin/booking/selesai/:id', (req, res) => {
+    const bookingId = req.params.id;
+    const query = "UPDATE booking SET status = 'Selesai' WHERE id = ?";
+    
+    db.query(query, [bookingId], (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Gagal mengupdate status.");
+        }
+        res.redirect('/admin/booking');
+    });
+});
