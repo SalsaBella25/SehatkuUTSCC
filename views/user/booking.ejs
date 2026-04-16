@@ -1,0 +1,24 @@
+<div class="card shadow-sm border-0 rounded-4 p-4">
+    <h3 class="fw-bold text-primary mb-4"><i class="bi bi-calendar-check me-2"></i>Booking Antrean Puskesmas</h3>
+    <form action="/booking" method="POST">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">NIK / No. KTP</label>
+                <input type="text" name="nik" class="form-control" placeholder="16 Digit NIK" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Pilih Poli</label>
+                <select name="poli" class="form-select">
+                    <option value="Umum">Poli Umum</option>
+                    <option value="Gigi">Poli Gigi</option>
+                    <option value="KIA">Kesehatan Ibu & Anak</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tanggal Kunjungan</label>
+            <input type="date" name="tanggal" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Daftar Antrean</button>
+    </form>
+</div>

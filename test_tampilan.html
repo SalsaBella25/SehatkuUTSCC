@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview HealthBridge | Nazwa 152023173</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root { --primary: #0d6efd; --secondary: #20c997; }
+        body { font-family: 'Inter', sans-serif; color: #444; }
+        
+        /* Hero Section dengan Background Medis */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.9), rgba(32, 201, 151, 0.8)), 
+                        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1350');
+            background-size: cover; background-position: center;
+            padding: 100px 0; color: white;
+        }
+
+        .feature-card {
+            border: none; border-radius: 20px; transition: 0.4s;
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        
+        .btn-custom {
+            padding: 12px 35px; border-radius: 50px; font-weight: 600; transition: 0.3s;
+        }
+        .btn-custom:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#"><i class="bi bi-heart-pulse-fill me-2"></i>HealthBridge</a>
+            <div class="ms-auto">
+                <span class="badge bg-light text-primary border p-2">Nazwa Nur Salsa Bella - 152023173</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3">Sistem Kesehatan <br> Masyarakat Digital</h1>
+            <p class="lead mb-5 opacity-75">Platform pelaporan terpadu berbasis Cloud untuk masa depan Bandung yang lebih sehat.</p>
+            <button class="btn btn-light btn-lg btn-custom text-primary shadow">Buat Laporan</button>
+        </div>
+    </header>
+
+    <section id="fitur" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">Layanan SehaTku</h2>
+                <p class="text-muted">Solusi kesehatan masyarakat digital berbasis Cloud Computing.</p>
+            </div>
+            <div class="row g-4 text-center">
+                
+                <div class="col-md-4">
+                    <div class="card h-100 feature-card shadow-sm p-4 border-0">
+                        <div class="icon-box mb-3 text-primary fs-1"><i class="bi bi-calendar-check"></i></div>
+                        <h4 class="fw-bold">Booking Puskesmas</h4>
+                        <p class="text-muted small">Daftar antrean layanan kesehatan secara online tanpa harus antre di lokasi.</p>
+                        <a href="/booking" class="btn btn-outline-primary btn-sm mt-auto rounded-pill">Buka Layanan</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 feature-card shadow-sm p-4 bg-primary text-white border-0">
+                        <div class="icon-box mb-3 fs-1 text-white"><i class="bi bi-graph-up-arrow"></i></div>
+                        <h4 class="fw-bold">Monitoring Penyakit</h4>
+                        <p class="small opacity-75">Pantau data tren penyakit masyarakat secara real-time untuk pencegahan dini.</p>
+                        <a href="/admin" class="btn btn-light btn-sm mt-auto rounded-pill text-primary fw-bold">Lihat Statistik</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 feature-card shadow-sm p-4 border-0">
+                        <div class="icon-box mb-3 text-success fs-1"><i class="bi bi-shield-plus"></i></div>
+                        <h4 class="fw-bold">Laporan Lingkungan</h4>
+                        <p class="text-muted small">Laporkan kondisi lingkungan tidak sehat dengan unggah bukti foto langsung ke S3.</p>
+                        <a href="/lapor" class="btn btn-outline-success btn-sm mt-auto rounded-pill">Buat Laporan</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 bg-dark text-white text-center">
+        <div class="container opacity-75">
+            <p class="small mb-1">HealthBridge App - UTS Cloud Computing 2026</p>
+            <p class="small fw-bold">Informatika Itenas Bandung</p>
+        </div>
+    </footer>
+
+</body>
+</html>
