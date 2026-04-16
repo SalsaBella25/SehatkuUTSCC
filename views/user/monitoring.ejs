@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Kesehatan | SehaTku</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <%- include('../partials/navbar') %>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Data Pemantauan Penyakit Terkini</h1>
+            <p class="text-muted">Informasi kesehatan masyarakat secara real-time dari database RDS.</p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <% dataPenyakit.forEach(p => { %>
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4 text-center">
+                        <h6 class="text-uppercase text-danger fw-bold mb-2">Wilayah: <%= p.wilayah %></h6>
+                        <h3 class="card-title fw-bold mb-3"><%= p.nama %></h3>
+                        <div class="display-4 fw-bold text-dark"><%= p.kasus %></div>
+                        <p class="text-muted">Kasus Terdeteksi</p>
+                        <hr>
+                        <small class="text-muted">Update terakhir: <%= p.tanggal %></small>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/lapor" class="btn btn-outline-primary btn-lg rounded-pill px-5">Bantu Lapor Kondisi Lingkungan</a>
+        </div>
+    </div>
+</body>
+</html>
