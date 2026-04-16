@@ -1,24 +1,49 @@
-<div class="card shadow-sm border-0 rounded-4 p-4">
-    <h3 class="fw-bold text-primary mb-4"><i class="bi bi-calendar-check me-2"></i>Booking Antrean Puskesmas</h3>
-    <form action="/booking" method="POST">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label class="form-label">NIK / No. KTP</label>
-                <input type="text" name="nik" class="form-control" placeholder="16 Digit NIK" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Pilih Poli</label>
-                <select name="poli" class="form-select">
-                    <option value="Umum">Poli Umum</option>
-                    <option value="Gigi">Poli Gigi</option>
-                    <option value="KIA">Kesehatan Ibu & Anak</option>
-                </select>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Puskesmas | HealthBridge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <%- include('../partials/navbar') %>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow border-0 rounded-4 p-4">
+                    <h2 class="fw-bold mb-4 text-primary"><i class="bi bi-hospital"></i> Pendaftaran Online</h2>
+                    <form action="/booking" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Nama sesuai KTP" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Pilih Puskesmas</label>
+                            <select name="puskesmas" class="form-select">
+                                <option value="Puskesmas Cibeber">Puskesmas Cibeber</option>
+                                <option value="Puskesmas Cimahi Selatan">Puskesmas Cimahi Selatan</option>
+                                <option value="Puskesmas Leuwigajah">Puskesmas Leuwigajah</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Tanggal</label>
+                                <input type="date" name="tanggal" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Jam</label>
+                                <input type="time" name="jam" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Keluhan</label>
+                            <textarea name="keluhan" class="form-control" rows="3" placeholder="Jelaskan keluhan anda" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-pill">Daftar Sekarang</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Tanggal Kunjungan</label>
-            <input type="date" name="tanggal" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Daftar Antrean</button>
-    </form>
-</div>
+    </div>
+</body>
+</html>

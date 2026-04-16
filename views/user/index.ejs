@@ -3,64 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>HealthBridge | Solusi Kesehatan Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <%- include('../partials/navbar') %>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="/"><i class="bi bi-heart-pulse-fill me-2"></i>HealthBridge</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#fitur">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-outline-primary ms-lg-3" href="/admin">Login Admin</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero-section text-center">
-        <div class="container">
+    <header class="hero-section text-center py-5 bg-primary text-white">
+        <div class="container py-5">
             <h1 class="display-3 fw-bold mb-3">Solusi Kesehatan <br> Masyarakat Digital</h1>
-            <p class="lead mb-5 px-md-5">Platform terintegrasi untuk melaporkan kondisi lingkungan, memantau tren penyakit, dan meningkatkan kualitas hidup masyarakat Bandung.</p>
-            <a href="/lapor" class="btn btn-light btn-lg px-5 py-3 fw-bold text-primary rounded-pill">Buat Laporan Sekarang</a>
+            <p class="lead mb-5 px-md-5 opacity-75">Platform terintegrasi untuk melaporkan kondisi lingkungan, booking layanan kesehatan, dan memantau tren penyakit.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/lapor" class="btn btn-light btn-lg px-5 py-3 fw-bold text-primary rounded-pill shadow">Buat Laporan</a>
+                <a href="/booking" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold rounded-pill">Booking Puskesmas</a>
+            </div>
         </div>
     </header>
 
-    <section id="fitur" class="py-5 bg-light">
+    <section id="fitur" class="py-5 bg-white">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Layanan Utama Kami</h2>
-                <p class="text-muted">Dibangun dengan teknologi Cloud mutakhir untuk kecepatan dan keandalan[cite: 66, 67].</p>
+                <h2 class="fw-bold">Layanan Utama HealthBridge</h2>
+                <p class="text-muted">Kemudahan akses kesehatan dalam satu genggaman.</p>
             </div>
-            <div class="row g-4">
+            <div class="row g-4 text-center">
                 <div class="col-md-4">
-                    <div class="card h-100 feature-card shadow-sm p-4">
-                        <div class="icon-box mb-3 text-primary fs-1"><i class="bi bi-megaphone"></i></div>
-                        <h4 class="fw-bold">Pelaporan Lingkungan</h4>
-                        <p class="text-muted small">Laporkan potensi wabah atau kondisi lingkungan tidak sehat langsung kepada pemerintah.</p>
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4">
+                        <div class="fs-1 text-primary mb-3"><i class="bi bi-calendar2-check"></i></div>
+                        <h4 class="fw-bold">Booking Online</h4>
+                        <p class="text-muted">Antre di puskesmas lebih mudah tanpa harus menunggu lama di lokasi.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 feature-card shadow-sm p-4 bg-primary text-white">
-                        <div class="icon-box mb-3 fs-1"><i class="bi bi-cloud-upload"></i></div>
-                        <h4 class="fw-bold text-white">Bukti Digital (S3)</h4>
-                        <p class="small text-white-50">Setiap laporan didukung unggahan foto langsung ke AWS S3 untuk validasi data yang akurat[cite: 42, 64].</p>
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 bg-primary text-white">
+                        <div class="fs-1 mb-3"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <h4 class="fw-bold text-white">Laporan S3</h4>
+                        <p class="text-white-50">Unggah bukti foto kondisi lingkungan langsung ke cloud storage AWS.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 feature-card shadow-sm p-4">
-                        <div class="icon-box mb-3 text-success fs-1"><i class="bi bi-graph-up-arrow"></i></div>
-                        <h4 class="fw-bold">Monitoring Penyakit</h4>
-                        <p class="text-muted small">Data tersimpan aman di RDS untuk analisis tren kesehatan masyarakat secara real-time[cite: 41, 50].</p>
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4">
+                        <div class="fs-1 text-success mb-3"><i class="bi bi-activity"></i></div>
+                        <h4 class="fw-bold">Real-time Monitor</h4>
+                        <p class="text-muted">Pantau grafik penyebaran penyakit di wilayahmu secara instan.</p>
                     </div>
                 </div>
             </div>
@@ -69,14 +56,8 @@
 
     <footer class="py-5 bg-dark text-white text-center">
         <div class="container">
-            <p class="mb-2 fw-bold">HealthBridge Application</p>
-            <p class="small text-white-50">UTS Cloud Computing - GENAP 2024/2025 [cite: 14]</p>
-            <hr class="w-25 mx-auto my-4 border-secondary">
-            <p class="small mb-0">Nazwa Nur Salsa Bella (152023173)</p>
-            <p class="small">Informatika - Itenas Bandung [cite: 1, 10]</p>
+            <p class="mb-0">Nazwa Nur Salsa Bella (152023173) - Informatika Itenas</p>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
