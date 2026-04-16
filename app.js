@@ -28,13 +28,13 @@ const upload = multer({
 });
 
 // --- 2. KONFIGURASI DATABASE RDS ---
-const db = mysql.createConnection({
+const db = mysql.createPool({ // Menggunakan createPool lebih stabil untuk RDS
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD, 
     database: process.env.DB_NAME,
     port: 3306,
-    multipleStatements: true // Penting untuk dashboard statistik
+    multipleStatements: true 
 });
 
 app.set('view engine', 'ejs');
@@ -44,11 +44,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // --- 3. ROUTING USER ---
-
-// Beranda
 app.get('/', (req, res) => res.render('user/index', { title: 'HealthBridge' }));
 
-// Monitoring (Tampilan Grafik & Tabel)
 app.get('/monitoring', (req, res) => {
     db.query("SELECT * FROM penyakit ORDER BY tanggal DESC", (err, results) => {
         if (err) throw err;
@@ -56,21 +53,18 @@ app.get('/monitoring', (req, res) => {
     });
 });
 
-// Lapor Lingkungan (S3 Upload)
 app.get('/lapor', (req, res) => res.render('user/lapor', { title: 'Lapor Kondisi' }));
 
 app.post('/lapor', upload.single('foto'), (req, res) => {
     const { nama, keluhan } = req.body;
     const fotoUrl = req.file ? req.file.location : null;
-
     const query = "INSERT INTO laporan (nama, keluhan, foto) VALUES (?, ?, ?)";
     db.query(query, [nama, keluhan, fotoUrl], (err) => {
         if (err) throw err;
-        res.send("<script>alert('Laporan Berhasil Terkirim ke Cloud!'); window.location='/';</script>");
+        res.send("<script>alert('Laporan Berhasil Terkirim!'); window.location='/';</script>");
     });
 });
 
-// Booking Puskesmas
 app.get('/booking', (req, res) => res.render('user/booking', { title: 'Booking Puskesmas' }));
 
 app.post('/booking', (req, res) => {
@@ -82,35 +76,27 @@ app.post('/booking', (req, res) => {
     });
 });
 
-// --- 4. ROUTING ADMIN ---
+// --- 4. ROUTING ADMIN (PERBAIKAN CRUD & FLOW) ---
 
-// Dashboard (Statistik + Tabel Penyakit)
+// Dashboard
 app.get('/admin', (req, res) => {
-    // Kita jalankan 4 query sekaligus: Total Penyakit, Total Booking, Total Laporan, dan List Penyakit
     const qStats = `
         SELECT COUNT(*) as total FROM penyakit; 
         SELECT COUNT(*) as total FROM booking; 
         SELECT COUNT(*) as total FROM laporan;
         SELECT * FROM penyakit ORDER BY id DESC LIMIT 5
     `;
-    
     db.query(qStats, (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send("Error Database");
-        }
-        
-        // results[0], [1], [2] adalah hasil COUNT
-        // results[3] adalah list data penyakit untuk tabel
+        if (err) return res.status(500).send("Error Database");
         res.render('admin/dashboard', { 
             title: 'Admin Dashboard', 
             stats: results,
-            dataPenyakit: results[3] // INI KUNCINYA! Supaya dataPenyakit terdefinisi
+            dataPenyakit: results[3]
         });
     });
 });
 
-// Manage Penyakit (CRUD)
+// Manage Penyakit
 app.get('/admin/monitoring', (req, res) => {
     db.query("SELECT * FROM penyakit ORDER BY id DESC", (err, results) => {
         if (err) throw err;
@@ -120,8 +106,7 @@ app.get('/admin/monitoring', (req, res) => {
 
 app.post('/admin/tambah', (req, res) => {
     const { nama, wilayah, kasus, tanggal } = req.body;
-    db.query("INSERT INTO penyakit (nama, wilayah, kasus, tanggal) VALUES (?, ?, ?, ?)", 
-    [nama, wilayah, kasus, tanggal], (err) => {
+    db.query("INSERT INTO penyakit (nama, wilayah, kasus, tanggal) VALUES (?, ?, ?, ?)", [nama, wilayah, kasus, tanggal], (err) => {
         if (err) throw err;
         res.redirect('/admin/monitoring');
     });
@@ -134,7 +119,7 @@ app.get('/admin/monitoring/hapus/:id', (req, res) => {
     });
 });
 
-// Manage Booking
+// Manage Booking (Alur: Selesai = Hapus)
 app.get('/admin/booking', (req, res) => {
     db.query("SELECT * FROM booking ORDER BY id DESC", (err, results) => {
         if (err) throw err;
@@ -142,11 +127,26 @@ app.get('/admin/booking', (req, res) => {
     });
 });
 
-// Manage Laporan
+app.get('/admin/booking/hapus/:id', (req, res) => {
+    db.query("DELETE FROM booking WHERE id = ?", [req.params.id], (err) => {
+        if (err) throw err;
+        res.redirect('/admin/booking');
+    });
+});
+
+// Manage Laporan (Solusi Gambar & Hapus)
 app.get('/admin/laporan', (req, res) => {
     db.query("SELECT * FROM laporan ORDER BY id DESC", (err, results) => {
         if (err) throw err;
         res.render('admin/laporan', { title: 'Manage Laporan', dataLaporan: results });
+    });
+});
+
+// FIX: Route Hapus Laporan yang tadi kamu tanyakan
+app.get('/admin/laporan/hapus/:id', (req, res) => {
+    db.query("DELETE FROM laporan WHERE id = ?", [req.params.id], (err) => {
+        if (err) throw err;
+        res.redirect('/admin/laporan');
     });
 });
 

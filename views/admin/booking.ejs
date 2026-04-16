@@ -8,33 +8,37 @@
 <body class="bg-light">
     <div class="d-flex">
         <%- include('../partials/sidebar') %>
-        <div class="content p-5" style="margin-left: 280px; width: 100%;">
-            <h2 class="fw-bold mb-4">Data Antrean Puskesmas</h2>
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <table class="table table-hover mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="px-4">Nama Pasien</th>
-                            <th>Puskesmas</th>
-                            <th>Jadwal</th>
-                            <th>Keluhan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% dataBooking.forEach(b => { %>
-                        <tr>
-                            <td class="px-4 fw-bold"><%= b.nama_user %></td>
-                            <td><%= b.puskesmas %></td>
-                            <td><%= b.tanggal %> (<%= b.jam %>)</td>
-                            <td><%= b.keluhan %></td>
-                            <td><a href="/admin/booking/selesai/<%= b.id %>" class="btn btn-success btn-sm">Selesai</a></td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <div class="card mb-4">
+    <div class="card-header"><i class="fas fa-table me-1"></i> Data Booking Puskesmas</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nama Pasien</th>
+                    <th>Puskesmas Tujuan</th>
+                    <th>Jadwal (Tanggal/Jam)</th>
+                    <th>Keluhan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% dataBooking.forEach(book => { %>
+                    <tr>
+                        <td><%= book.nama_user %></td>
+                        <td><%= book.puskesmas %></td>
+                        <td><span class="badge bg-primary"><%= book.tanggal %></span> <%= book.jam %></td>
+                        <td><%= book.keluhan %></td>
+                        <td>
+                            <a href="/admin/booking/hapus/<%= book.id %>" class="btn btn-sm btn-success">
+                                Tandai Selesai
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
     </div>
 </body>
 </html>
