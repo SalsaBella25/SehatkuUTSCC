@@ -16,29 +16,20 @@
                         <h2 class="fw-bold mb-4">Form Laporan Kesehatan Lingkungan</h2>
                         
                         <form action="/lapor" method="POST" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Nama Pelapor</label>
-                                <input type="text" name="nama" class="form-control form-control-lg" placeholder="Masukkan nama lengkap" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Jenis Masalah Kesehatan</label>
-                                <select name="kategori" class="form-select form-select-lg">
-                                    <option value="Sanitasi">Sanitasi/Sampah</option>
-                                    <option value="Wabah">Potensi Wabah Penyakit</option>
-                                    <option value="Fasilitas">Fasilitas Kesehatan Rusak</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Deskripsi Laporan</label>
-                                <textarea name="deskripsi" class="form-control" rows="4" placeholder="Jelaskan detail kondisi di lapangan..." required></textarea>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold">Unggah Bukti Foto (Wajib S3)</label>
-                                <input type="file" name="foto" class="form-control" accept="image/*" required>
-                                <div class="form-text text-danger">*Foto akan disimpan secara otomatis di AWS S3.</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary-custom w-100 py-3 shadow">Kirim Laporan ke Pemerintah</button>
-                        </form>
+    <div class="mb-3">
+        <label>Nama Pelapor</label>
+        <input type="text" name="nama" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Deskripsi Laporan</label>
+        <textarea name="keluhan" class="form-control" rows="4" required></textarea>
+    </div>
+    <div class="mb-4">
+        <label>Unggah Bukti Foto</label>
+        <input type="file" name="foto" class="form-control" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Kirim Laporan</button>
+</form>
 
                     </div>
                 </div>
