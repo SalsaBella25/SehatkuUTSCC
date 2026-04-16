@@ -84,14 +84,28 @@ app.post('/booking', (req, res) => {
 
 // --- 4. ROUTING ADMIN ---
 
-// Dashboard (Statistik Ringkas)
+// Dashboard (Statistik + Tabel Penyakit)
 app.get('/admin', (req, res) => {
-    const qStats = "SELECT COUNT(*) as total FROM penyakit; SELECT COUNT(*) as total FROM booking; SELECT COUNT(*) as total FROM laporan";
+    // Kita jalankan 4 query sekaligus: Total Penyakit, Total Booking, Total Laporan, dan List Penyakit
+    const qStats = `
+        SELECT COUNT(*) as total FROM penyakit; 
+        SELECT COUNT(*) as total FROM booking; 
+        SELECT COUNT(*) as total FROM laporan;
+        SELECT * FROM penyakit ORDER BY id DESC LIMIT 5
+    `;
+    
     db.query(qStats, (err, results) => {
-        if (err) throw err;
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Error Database");
+        }
+        
+        // results[0], [1], [2] adalah hasil COUNT
+        // results[3] adalah list data penyakit untuk tabel
         res.render('admin/dashboard', { 
             title: 'Admin Dashboard', 
-            stats: results // Mengirim hasil dari 3 query sekaligus
+            stats: results,
+            dataPenyakit: results[3] // INI KUNCINYA! Supaya dataPenyakit terdefinisi
         });
     });
 });
